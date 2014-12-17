@@ -1,0 +1,41 @@
+<template name="postSubmit">
+    <form class="main form">
+        <div class="form-group {{errorClass 'url'}}">
+            <label class="control-label" for="url">URL</label>
+            <div class="controls">
+                <input name="url" id="url" type="text" value="" placeholder="Your URL" class="form-control"/>
+                <span class="help-block">{{errorMessage 'url'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'title'}}">
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+                <input name="title" id="title" type="text" value="" placeholder="Name your post" class="form-control"/>
+                <span class="help-block">{{errorMessage 'title'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'scraper'}}">
+            <label class="control-label" for="scraper">Scraper</label>
+            <div class="controls">
+                <select name="scraper" id="scraper" class="selectpicker changeitem">
+                    <option {{selected scraper 'phantom'}} value='phantom'>PhantomJS</option>
+                    <option {{selected scraper 'spooky'}} value='spooky'>SpookyJS</option>
+                    <option {{selected scraper 'cheerio'}} value='cheerio'>CheerioJS</option>
+                </select>
+                <span class="help-block">{{errorMessage 'scraper'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'schedule'}}">
+            <label class="control-label" for="schedule">Schedule</label>
+            <div class="controls">
+                <select name="schedule" id="schedule" class="selectpicker changeitem">
+                    {{#each getScheduleOptions}}
+                        <option value='{{value}}'>{{label}}</option>
+                    {{/each}}
+                </select>
+                <span class="help-block">{{errorMessage 'schedule'}}</span>
+            </div>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form>
+</template>

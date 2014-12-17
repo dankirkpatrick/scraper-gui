@@ -1,0 +1,6 @@
+<template name="websiteList">
+    <h2>Scheduled Websites</h2>
+    {{#each websites}}
+    <a class="btn btn-danger delete" href="#">Delete</a> <strong>{{url}}:</strong> {{createdAt}} by {{username}} <i>(user: {{owner}})</i><br>
+    {{/each}}
+</template>

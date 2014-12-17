@@ -1,0 +1,107 @@
+<template name="postEdit">
+    <form class="main form">
+        <div class="form-group {{errorClass 'url'}}">
+            <label class="control-label" for="url">URL</label>
+            <div class="controls">
+                <input name="url" id="url" type="text" value="{{url}}" placeholder="Your URL" class="form-control"/>
+                <span class="help-block">{{errorMessage 'url'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'title'}}">
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+                <input name="title" id="title" type="text" value="{{title}}" placeholder="Name your post" class="form-control"/>
+                <span class="help-block">{{errorMessage 'title'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'scraper'}}">
+            <label class="control-label" for="scraper">Scraper</label>
+            <div class="controls">
+                <select name="scraper" id="scraper" class="selectpicker changeitem">
+                    <option {{selected scraper 'phantom'}} value='phantom'>PhantomJS</option>
+                    <option {{selected scraper 'spooky'}} value='spooky'>SpookyJS</option>
+                    <option {{selected scraper 'cheerio'}} value='cheerio'>CheerioJS</option>
+                </select>
+                <span class="help-block">{{errorMessage 'scraper'}}</span>
+            </div>
+        </div>
+        <div class="form-group {{errorClass 'schedule'}}">
+            <label class="control-label" for="schedule">Schedule</label>
+            <div class="controls">
+                <select name="schedule" id="schedule" class="selectpicker changeitem">
+                    <option {{selected schedule '0'}} value='0'>Do not scrape</option>
+                    <option {{selected schedule '1'}} value='1'>Scrape once</option>
+                    <option {{selected schedule '2'}} value='2'>Scrape yearly</option>
+                    <option {{selected schedule '3'}} value='3'>Scrape monthly</option>
+                    <option {{selected schedule '4'}} value='4'>Scrape weekly</option>
+                    <option {{selected schedule '5'}} value='5'>Scrape daily</option>
+                    <option {{selected schedule '6'}} value='6'>Scrape hourly</option>
+                </select>
+                <span class="help-block">{{errorMessage 'schedule'}}</span>
+            </div>
+            {{#if selected schedule '2'}}
+                <div class="form-group {{errorClass 'yearlySchedule'}}">
+                    <label class="control-label" for="yearlySchedule">Yearly Schedule</label>
+                    <div class="controls">
+                        <select name="yearlySchedule" id="yearlySchedule" class="selectpicker changeitem">
+                            <option {{selected yearlySchedule '0'}} value='0'>On first business day</option>
+                            <option {{selected yearlySchedule '1'}} value='1'>On last business day</option>
+                            <option {{selected yearlySchedule '2'}} value='2'>On Nth business day</option>
+                            <option {{selected yearlySchedule '3'}} value='3'>On date</option>
+                        </select>
+                        <span class="help-block">{{errorMessage 'schedule'}}</span>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if selected schedule '3'}}
+                <div class="form-group {{errorClass 'monthlySchedule'}}">
+                    <label class="control-label" for="monthlySchedule">Monthly Schedule</label>
+                    <div class="controls">
+                        <select name="monthlySchedule" id="monthlySchedule" class="selectpicker changeitem">
+                            <option {{selected monthlySchedule '0'}} value='0'>On first business day</option>
+                            <option {{selected monthlySchedule '1'}} value='1'>On last business day</option>
+                            <option {{selected monthlySchedule '2'}} value='2'>On Nth business day</option>
+                            <option {{selected monthlySchedule '3'}} value='3'>On date of month</option>
+                        </select>
+                        <span class="help-block">{{errorMessage 'schedule'}}</span>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if selected schedule '4'}}
+                <div class="form-group {{errorClass 'weeklySchedule'}}">
+                    <label class="control-label" for="weeklySchedule">Scrape on:</label>
+                    <div class="controls">
+                        <select name="weeklySchedule" id="weeklySchedule" class="selectpicker changeitem">
+                            <option {{selected weeklySchedule '0'}} value='0'>Mondays</option>
+                            <option {{selected weeklySchedule '1'}} value='1'>Tuesdays</option>
+                            <option {{selected weeklySchedule '2'}} value='2'>Wednesdays</option>
+                            <option {{selected weeklySchedule '3'}} value='3'>Thursdays</option>
+                            <option {{selected weeklySchedule '4'}} value='4'>Fridays</option>
+                            <option {{selected weeklySchedule '5'}} value='5'>Saturdays</option>
+                            <option {{selected weeklySchedule '6'}} value='6'>Sundays</option>
+                        </select>
+                        <span class="help-block">{{errorMessage 'schedule'}}</span>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if selected schedule '5'}}
+                <div class="form-group {{errorClass 'dailySchedule'}}">
+                    <label class="control-label" for="dailyScheduleMon">Scrape on:</label>
+                    <div class="controls">
+                        <input type="checkbox" name="dailyScheduleMon" value="1" {{bitfieldChecked dailySchedule '1'}}>Mondays<br/>
+                        <input type="checkbox" name="dailyScheduleTue" value="2" {{bitfieldChecked dailySchedule '2'}}>Tuesdays<br/>
+                        <input type="checkbox" name="dailyScheduleWed" value="4" {{bitfieldChecked dailySchedule '4'}}>Wednesdays<br/>
+                        <input type="checkbox" name="dailyScheduleThu" value="8" {{bitfieldChecked dailySchedule '8'}}>Thursdays<br/>
+                        <input type="checkbox" name="dailyScheduleFri" value="16" {{bitfieldChecked dailySchedule '16'}}>Fridays<br/>
+                        <input type="checkbox" name="dailyScheduleSat" value="32" {{bitfieldChecked dailySchedule '32'}}>Saturdays<br/>
+                        <input type="checkbox" name="dailyScheduleSun" value="64" {{bitfieldChecked dailySchedule '64'}}>Sundays<br/>
+                        <span class="help-block">{{errorMessage 'schedule'}}</span>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary submit"/>
+        <hr/>
+        <a class="btn btn-danger delete" href="#">Delete post</a>
+    </form>
+</template>

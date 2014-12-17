@@ -1,0 +1,1 @@
+zmq = Npm.require('zmq');
